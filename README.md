@@ -206,14 +206,24 @@ No scanner can prove that code is safe. guardpost reads code; it doesn't run it.
 Code built to look harmless, or malware that's too new to be listed, can get through.
 A "REVIEW" or "DANGER" result means *read before you run*.
 
-## Development
+## Contributing
+
+Ideas, new detection rules and fixes are welcome. Fork the repo, make your change on
+a branch, and open a pull request. Before you open it, run the tests:
 
 ```bash
-python3 -I tests/test_scanner.py      # unit tests (planted samples are built at test time)
-bash tests/check-install.sh           # after ./install.sh
-bash tests/check-clone.sh             # a planted repo must be caught on clone
-tools/make-release.sh 1.1.0           # bump VERSION + CHANGELOG first; CI publishes the release
+python3 -I tests/test_scanner.py   # unit tests
 ```
+
+- New detection patterns go in `guardpost/rules.json`, with a test in
+  `tests/test_scanner.py` that shows the pattern catching a sample and not flagging
+  normal code.
+- Build malicious-looking samples from pieces at test time (see `J([...])` in the
+  tests), so the repo itself never looks like malware.
+- CI runs the tests, shellcheck and a full install on every pull request.
+
+New versions are published by the maintainer. Installed copies pick them up within a
+day.
 
 To report a security problem in guardpost itself, open a
 [private security advisory](https://github.com/Kumarsujay03/guardpost/security/advisories/new).
