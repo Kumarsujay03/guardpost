@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="240" viewBox="0 0 960 240" font-family="JetBrains Mono, Fira Code, DejaVu Sans Mono, Menlo, Consolas, monospace">
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0 H0 V24" fill="none" stroke="#22d3ee" stroke-opacity="0.07"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" x2="1">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#22d3ee" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="240" rx="8" fill="#071018"/>
+  <rect width="960" height="240" rx="8" fill="url(#grid)"/>
+  <!-- corner brackets -->
+  <g fill="none" stroke="#22d3ee" stroke-width="2">
+    <path d="M8,30 V8 H30"/><path d="M952,30 V8 H930"/><path d="M8,210 V232 H30"/><path d="M952,210 V232 H930"/>
+  </g>
+  <!-- shield with scan rings -->
+  <g transform="translate(150,120)">
+    <circle r="78" fill="none" stroke="#22d3ee" stroke-opacity="0.18"/>
+    <circle r="62" fill="none" stroke="#22d3ee" stroke-opacity="0.3" stroke-dasharray="3 6"/>
+    <path d="M0,-50 L40,-34 V2 C40,30 20,46 0,56 C-20,46 -40,30 -40,2 V-34 Z" fill="#0b1d29" stroke="#22d3ee" stroke-width="2.5"/>
+    <path d="M-16,2 L-4,15 L19,-12" fill="none" stroke="#4ade80" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="-78" y1="0" x2="-58" y2="0" stroke="#22d3ee"/><line x1="58" y1="0" x2="78" y2="0" stroke="#22d3ee"/>
+    <line x1="0" y1="-78" x2="0" y2="-66" stroke="#22d3ee"/><line x1="0" y1="66" x2="0" y2="78" stroke="#22d3ee"/>
+  </g>
+  <text x="270" y="104" fill="#e6f6fb" font-size="54" font-weight="bold" letter-spacing="2">guardpost</text>
+  <rect x="270" y="120" width="560" height="1.5" fill="url(#fade)"/>
+  <text x="270" y="150" fill="#9fb3c0" font-size="17">a defence layer for your Linux laptop</text>
+  <g font-size="13" fill="#22d3ee" letter-spacing="1">
+    <text x="270" y="190">[ CLONE ]</text>
+    <text x="378" y="190">[ INSTALL ]</text>
+    <text x="502" y="190">[ SWEEP ]</text>
+    <text x="610" y="190">[ BOOT AUDIT ]</text>
+    <text x="756" y="190">[ AUTO-UPDATE ]</text>
+  </g>
+</svg>

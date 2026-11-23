@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="858" height="448" viewBox="0 0 858 448" font-family="JetBrains Mono, Fira Code, DejaVu Sans Mono, Menlo, Consolas, monospace" font-size="14">
+<rect width="858" height="448" rx="6" fill="#071018"/>
+<rect x="0.5" y="0.5" width="857" height="447" rx="6" fill="none" stroke="#22d3ee" stroke-opacity="0.35"/>
+<path d="M4,18 V4 H18" fill="none" stroke="#22d3ee" stroke-width="2"/>
+<path d="M854,18 V4 H840" fill="none" stroke="#22d3ee" stroke-width="2"/>
+<path d="M4,430 V444 H18" fill="none" stroke="#22d3ee" stroke-width="2"/>
+<path d="M854,430 V444 H840" fill="none" stroke="#22d3ee" stroke-width="2"/>
+<line x1="22" y1="32" x2="836" y2="32" stroke="#22d3ee" stroke-opacity="0.25"/>
+<text x="22" y="22" fill="#22d3ee" font-size="12">$ guardpost sweep</text>
+<text x="22.0" y="52" fill="#22d3ee" font-weight="bold" textLength="285.6" lengthAdjust="spacingAndGlyphs">[ System sweep  Mon 23 Nov 12:06 ]</text>
+<text x="22.0" y="71" fill="#6b7f8e" textLength="285.6" lengthAdjust="spacingAndGlyphs">Threat feeds updated 0 day(s) ago.</text>
+<text x="324.4" y="71" fill="#6b7f8e" textLength="84.0" lengthAdjust="spacingAndGlyphs">Took 71 s.</text>
+<text x="22.0" y="109" fill="#22d3ee" textLength="327.6" lengthAdjust="spacingAndGlyphs">-- Connections to known malware servers</text>
+<text x="47.2" y="128" fill="#d7e3ea" textLength="789.6" lengthAdjust="spacingAndGlyphs">16 open connection(s) compared with 5 known malware servers and 8261 IPs on several blocklists</text>
+<text x="22.0" y="166" fill="#22d3ee" textLength="159.6" lengthAdjust="spacingAndGlyphs">-- Running programs</text>
+<text x="47.2" y="185" fill="#4ade80" textLength="92.4" lengthAdjust="spacingAndGlyphs">nothing odd</text>
+<text x="148.0" y="185" fill="#6b7f8e" textLength="411.6" lengthAdjust="spacingAndGlyphs">(only your own programs are visible without root)</text>
+<text x="22.0" y="223" fill="#22d3ee" textLength="151.2" lengthAdjust="spacingAndGlyphs">-- Start-up places</text>
+<text x="47.2" y="242" fill="#4ade80" textLength="285.6" lengthAdjust="spacingAndGlyphs">nothing odd in 66 start-up file(s)</text>
+<text x="22.0" y="280" fill="#22d3ee" textLength="445.2" lengthAdjust="spacingAndGlyphs">-- System files changed since install (dpkg --verify)</text>
+<text x="47.2" y="299" fill="#4ade80" textLength="327.6" lengthAdjust="spacingAndGlyphs">no system programs or libraries changed</text>
+<text x="383.2" y="299" fill="#6b7f8e" textLength="319.2" lengthAdjust="spacingAndGlyphs">(files only root can read are skipped)</text>
+<text x="22.0" y="337" fill="#22d3ee" textLength="142.8" lengthAdjust="spacingAndGlyphs">-- Kernel modules</text>
+<text x="47.2" y="356" fill="#4ade80" textLength="411.6" lengthAdjust="spacingAndGlyphs">all 223 loaded modules come from packages or DKMS</text>
+<text x="22.0" y="394" fill="#22d3ee" textLength="84.0" lengthAdjust="spacingAndGlyphs">-- Verdict</text>
+<text x="47.2" y="413" fill="#4ade80" textLength="252.0" lengthAdjust="spacingAndGlyphs">No malware or intrusion found.</text>
+</svg>

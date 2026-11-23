@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        python: ['3.10', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Compile
+        run: python -m compileall -q guardpost bin/guardpost
+      - name: Unit tests
+        run: timeout 300 python -I tests/test_scanner.py
+
+  shell:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: shellcheck install.sh uninstall.sh hooks/post-checkout shell/guardpost.bash tools/*.sh
+      - name: fish syntax
+        run: sudo apt-get install -y -qq fish >/dev/null && fish -n shell/guardpost.fish
+      - name: VERSION and CHANGELOG agree
+        run: grep -q "^## $(cat VERSION)\$" CHANGELOG.md
+
+  install:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install from a release-style archive
+        run: |
+          v=$(cat VERSION)
+          git archive --format=tar.gz --prefix="guardpost-$v/" -o /tmp/g.tar.gz HEAD
+          mkdir /tmp/x && tar -xzf /tmp/g.tar.gz -C /tmp/x
+          timeout 300 bash "/tmp/x/guardpost-$v/install.sh"
+      - name: Check the install
+        run: timeout 300 bash tests/check-install.sh
+      - name: A planted bad repo is caught on clone
+        run: timeout 300 bash tests/check-clone.sh
+      - name: Uninstall
+        run: |
+          bash uninstall.sh
+          ! test -e ~/.local/bin/guardpost
+          ! git config --global --get init.templateDir

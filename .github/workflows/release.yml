@@ -1,0 +1,47 @@
+name: Release
+
+# Push a tag vX.Y.Z (tools/make-release.sh does it). CI runs on that commit
+# first; only if it passes is the release published with the archive and
+# checksum that `guardpost update` installs.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    needs: checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tag matches VERSION
+        run: |
+          [ "${GITHUB_REF_NAME}" = "v$(cat VERSION)" ] ||
+            { echo "tag ${GITHUB_REF_NAME} but VERSION says $(cat VERSION)"; exit 1; }
+      - name: Archive and checksum
+        run: |
+          v=$(cat VERSION)
+          mkdir dist
+          git archive --format=tar.gz --prefix="guardpost-$v/" -o "dist/guardpost-$v.tar.gz" HEAD
+          (cd dist && sha256sum "guardpost-$v.tar.gz" > "guardpost-$v.tar.gz.sha256")
+          tar -tzf "dist/guardpost-$v.tar.gz" | grep -qx "guardpost-$v/install.sh"
+      - name: Release notes from CHANGELOG.md
+        run: |
+          v=$(cat VERSION)
+          awk -v h="## $v" '$0 == h {on = 1; next} /^## / {on = 0} on' CHANGELOG.md > notes.md
+          printf '\nInstalled copies update themselves within a day (or run `guardpost update`). New install: download the archive, unpack it and run `./install.sh`.\n' >> notes.md
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v=$(cat VERSION)
+          gh release create "$GITHUB_REF_NAME" "dist/guardpost-$v.tar.gz" "dist/guardpost-$v.tar.gz.sha256" \
+            --title "guardpost $v" --notes-file notes.md

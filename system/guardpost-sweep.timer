@@ -1,0 +1,11 @@
+[Unit]
+Description=Weekly Guardpost sweep (runs at the next login if the laptop was off)
+
+[Timer]
+# change to OnCalendar=*-*-01,15 for every 15 days, or monthly
+OnCalendar=weekly
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=Guardpost sweep: refresh threat feeds, check installed software for malware and known bugs
+After=graphical-session.target network-online.target
+
+[Service]
+Type=exec
+ExecStart=%h/.local/bin/guardpost sweep --notify
+Nice=15
+IOSchedulingClass=idle
+TimeoutStartSec=3h

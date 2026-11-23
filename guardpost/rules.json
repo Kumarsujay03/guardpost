@@ -1,0 +1,73 @@
+{
+ "_comment": "guardpost detection patterns (Python regex). Kept as data so the scanner's own source doesn't match them.",
+ "line_rules": [
+  {
+   "severity": "high",
+   "title": "Reverse shell",
+   "why": "Gives someone else a remote command line on your laptop.",
+   "pattern": "/dev/tcp/\\d|bash\\s+-i\\s*>&|\\bnc(at)?\\b[^\\n]*\\s-e\\s*/bin/|socat\\b[^\\n]*exec:|mkfifo\\b[^\\n]*\\bnc\\b|os\\.dup2\\(\\s*[\\w.]+\\.fileno\\(\\)\\s*,\\s*[012]\\s*\\)|pty\\.spawn\\(\\s*['\\\"]/bin/(ba)?sh"
+  },
+  {
+   "severity": "high",
+   "title": "Download and run (PowerShell)",
+   "why": "Fetches code from the internet and runs it straight away.",
+   "pattern": "(?i)\\.downloadstring\\s*\\(|(\\biex|invoke-expression)\\s*\\(?\\s*\\(?\\s*(new-object\\s+(system\\.)?net\\.webclient|iwr\\b|irm\\b|invoke-webrequest|invoke-restmethod)|powershell[^\\n]*\\s-(e|enc|encodedcommand)\\s+[A-Za-z0-9+/=]{20,}"
+  },
+  {
+   "severity": "high",
+   "title": "Runs hidden (decoded) code",
+   "why": "Decodes a blob and executes it, so the real code can't be read in the repo.",
+   "pattern": "\\beval\\s*\\(\\s*(atob|unescape|decodeURIComponent|String\\.fromCharCode|Buffer\\.from)\\b|new\\s+Function\\s*\\(\\s*(atob|Buffer\\.from|String\\.fromCharCode)|\\bexec\\s*\\(\\s*(base64\\.b64decode|zlib\\.decompress|marshal\\.loads|bytes\\.fromhex|codecs\\.decode|__import__\\(\\s*['\\\"](base64|zlib|marshal|codecs))|\\beval\\s*\\(\\s*function\\s*\\(\\s*p\\s*,\\s*a\\s*,\\s*c\\s*,\\s*k\\s*,\\s*e\\s*,\\s*[rd]\\s*\\)|\\beval\\s*\\(\\s*\\\"?\\$\\(\\s*(echo|printf)\\b[^)]*\\|\\s*base64\\s+-d|base64\\s+(-d|--decode)[^\\n|]*\\|\\s*(ba|z)?sh\\b"
+  },
+  {
+   "severity": "high",
+   "title": "Crypto miner",
+   "why": "Uses your CPU to mine cryptocurrency for someone else.",
+   "pattern": "(?i)\\bxmrig\\b|stratum\\+(tcp|ssl)://|cryptonight|\\bminexmr\\b|nanopool\\.org|coinhive|supportxmr"
+  },
+  {
+   "severity": "medium",
+   "title": "Downloads a script and runs it",
+   "why": "Common in install scripts, but it runs whatever that server sends.",
+   "pattern": "(curl|wget)\\b[^\\n|;]*\\|\\s*(sudo\\s+(-\\S+\\s+)*)?(ba|z|da|k)?sh\\b|(ba)?sh\\s+-c\\s+\\\"?\\$\\((curl|wget)\\b|\\b(python3?|node|perl|ruby)\\s+-c?\\s*\\\"?\\$\\((curl|wget)\\b|(curl|wget)\\b[^\\n|;]*\\|\\s*(sudo\\s+)?(python3?|node|perl|ruby)\\b"
+  },
+  {
+   "severity": "medium",
+   "title": "Sends data to a drop box",
+   "why": "Discord/Telegram bots, paste sites and tunnels are where stolen data is sent.",
+   "pattern": "(?i)discord(app)?\\.com/api/webhooks|api\\.telegram\\.org/bot|webhook\\.site|pipedream\\.net|requestbin|\\bngrok(-free)?\\.(io|app|dev)|transfer\\.sh|pastebin\\.com/raw|paste\\.ee/|hastebin|anonfiles|\\bfile\\.io\\b|gofile\\.io|temp\\.sh|bashupload|interact\\.sh|oast\\.(fun|me|pro|live|site|online)|burpcollaborator|\\.trycloudflare\\.com"
+  },
+  {
+   "severity": "medium",
+   "title": "Talks to a bare IP address",
+   "why": "Real projects use domain names; malware often hard-codes its server's IP.",
+   "pattern": "(?i)\\b(https?|wss?|tcp)://(?!(127\\.|10\\.|0\\.0\\.0\\.0|192\\.168\\.|172\\.(1[6-9]|2\\d|3[01])\\.|169\\.254\\.|255\\.|1\\.1\\.1\\.1|8\\.8\\.[48]\\.[48]))\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"
+  },
+  {
+   "severity": "medium",
+   "title": "Makes itself start automatically",
+   "why": "Writes to a place that runs code at every login or boot.",
+   "pattern": "(?i)>>?\\s*~?/?[^\\n]*\\.(bashrc|zshrc|profile|bash_profile)\\b|crontab\\s+-[^l\\s]|crontab\\s+\\S+\\.(txt|cron)|(/etc/systemd/system|\\.config/systemd/user|\\.config/autostart|/etc/cron\\.|/etc/rc\\.local|LaunchAgents|LaunchDaemons|CurrentVersion\\\\\\\\Run|/etc/ld\\.so\\.preload)[^\\n]*(write|>>?|open\\(|cp |copy|tee )|(write|>>?|open\\(|cp |tee )[^\\n]*(\\.ssh/authorized_keys|/etc/ld\\.so\\.preload|/etc/sudoers)"
+  },
+  {
+   "severity": "medium",
+   "title": "Turns off protections",
+   "why": "Disables the firewall, SELinux, antivirus or shell history.",
+   "pattern": "(?i)setenforce\\s+0|ufw\\s+disable|iptables\\s+-F\\b|Set-MpPreference\\s+-Disable|Add-MpPreference\\s+-ExclusionPath|unset\\s+HISTFILE|history\\s+-c\\b|HISTFILE=/dev/null|chattr\\s+\\+i\\s"
+  },
+  {
+   "severity": "medium",
+   "title": "Obfuscated code",
+   "why": "The code has been scrambled on purpose so people can't read it.",
+   "pattern": "(?i)pyarmor|from\\s+pyarmor_runtime|__pyarmor__|(\\\\x[0-9a-f]{2}){40,}|(\\\\u00[0-9a-f]{2}){30,}"
+  }
+ ],
+ "secret": "(?i)Login Data|Local State['\\\"/]|\\bCookies['\\\"]|key4\\.db|logins\\.json|wallet\\.dat|nkbihfbeogaeaoehlefnkodbefgpgknn|ejbalbakoplchlghecdalmeeeajnimhm|\\bExodus\\b[^\\n]*(wallet|Local)|\\belectrum\\b[^\\n]*wallets|atomic/Local Storage|discord[^\\n]{0,40}(Local Storage|leveldb)|Telegram Desktop/tdata|\\btdata\\b|\\.ssh/id_(rsa|ed25519|ecdsa)|\\.aws/credentials|\\.config/gh/hosts\\.yml|\\.git-credentials|/etc/shadow|login\\.keyring|\\.docker/config\\.json|\\.kube/config|Keychains/login\\.keychain|\\bSolana\\b[^\\n]*id\\.json|\\.config/solana/id\\.json|\\.npmrc['\\\"]",
+ "network": "(?i)\\b(requests\\.(post|get|put)|urllib\\.request|urlopen|http\\.client|socket\\.(socket|connect)|fetch\\s*\\(|axios\\.|https?\\.request|XMLHttpRequest|net\\.connect|curl\\b|wget\\b|Invoke-WebRequest|WebClient|reqwest::|TcpStream::connect|ftplib|smtplib|FormData)",
+ "bidi": "[\u202a-\u202e\u2066-\u2069]",
+ "zero_width": "[\u200b-\u200d\u2060\u180e]|(?<!^)\ufeff",
+ "homoglyph": "[A-Za-z_][\u0400-\u04ff\u0370-\u03ff\u0500-\u052f]|[\u0400-\u04ff\u0370-\u03ff\u0500-\u052f][A-Za-z_]",
+ "obfuscated_js": "\\b_0x[0-9a-f]{4,6}\\b",
+ "base64_blob": "['\\\"`]([A-Za-z0-9+/]{400,}={0,2})['\\\"`]",
+ "exec_near": "\\b(eval|exec|Function|child_process|subprocess|os\\.system|spawn|execSync|Popen|\\$\\(|base64\\s+-d|b64decode|atob|Buffer\\.from)\\b"
+}

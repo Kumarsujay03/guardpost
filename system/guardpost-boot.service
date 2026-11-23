@@ -1,0 +1,14 @@
+[Unit]
+Description=Guardpost morning check: boots, logins and changes since the last check
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=exec
+# wait for the desktop to settle so the notification is seen
+ExecStart=%h/.local/bin/guardpost boot --notify --delay 20
+Nice=10
+TimeoutStartSec=15min
+
+[Install]
+WantedBy=graphical-session.target

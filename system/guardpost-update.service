@@ -1,0 +1,9 @@
+[Unit]
+Description=Guardpost: refresh threat feeds and install a new guardpost release if there is one
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/guardpost update --timer
+Nice=15
+TimeoutStartSec=20min

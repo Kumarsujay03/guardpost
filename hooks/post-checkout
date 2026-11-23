@@ -1,0 +1,9 @@
+#!/bin/sh
+# guardpost: check a repository for malware right after `git clone`.
+# git copies this hook into every new clone (init.templateDir). It only acts
+# on the first checkout of a clone (old HEAD is all zeros) and never fails it.
+[ "$1" = "0000000000000000000000000000000000000000" ] || exit 0
+[ -n "$GUARDPOST_OFF" ] && exit 0
+command -v guardpost >/dev/null 2>&1 || exit 0
+guardpost scan --after-clone "$(git rev-parse --show-toplevel)" </dev/null >&2 || true
+exit 0

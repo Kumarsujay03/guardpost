@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily Guardpost update (threat feeds and new releases)
+
+[Timer]
+OnCalendar=daily
+OnBootSec=10min
+Persistent=true
+RandomizedDelaySec=2h
+
+[Install]
+WantedBy=timers.target
