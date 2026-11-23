@@ -46,7 +46,9 @@ if [ -n "$existing" ] && [ "$existing" != "$tmpl" ]; then
     say "   git already uses the template folder $existing; link $cur/hooks/post-checkout into its hooks/ yourself"
 else
     mkdir -p "$tmpl/hooks"
-    [ -d /usr/share/git-core/templates ] && cp -rn /usr/share/git-core/templates/. "$tmpl/" 2>/dev/null || true
+    if [ -d /usr/share/git-core/templates ]; then
+        cp -rn /usr/share/git-core/templates/. "$tmpl/" 2>/dev/null || true
+    fi
     ln -sfn "$cur/hooks/post-checkout" "$tmpl/hooks/post-checkout"
     git config --global init.templateDir "$tmpl"
     say "   on for new clones (check older ones with: guardpost scan <folder>)"

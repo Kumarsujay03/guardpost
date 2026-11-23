@@ -321,7 +321,8 @@ class Scan:
                 self.add(MEDIUM, "Custom build code runs on pip install",
                          "pyproject.toml uses a build backend from inside the repo, which pip runs when installing.",
                          f, 0, "backend-path")
-            self.hooks.append(f"pip install: builds with {(re.search(r'build-backend\s*=\s*[\"\']([^\"\']+)', t) or [None, 'default'])[1]}")
+            backend = re.search(r"build-backend\s*=\s*[\"']([^\"']+)", t)
+            self.hooks.append(f"pip install: builds with {backend.group(1) if backend else 'default'}")
         for f in self._find_glob("requirements*.txt"):
             self._requirements(f)
         for f in self._find("build.rs"):
